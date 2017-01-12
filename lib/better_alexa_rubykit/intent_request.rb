@@ -1,4 +1,4 @@
-module AlexaRubykit
+module BetterAlexaRubyKit
   class IntentRequest < Request
     attr_accessor :intent, :name, :slots
 
@@ -24,7 +24,7 @@ module AlexaRubykit
 
     # Takes a JSON Object and symbolizes its keys.
     def add_slots(slots)
-      slot_hash = AlexaRubykit.transform_keys_to_symbols(value)
+      slot_hash = BetterAlexaRubyKit.transform_keys_to_symbols(value)
       add_hash_slots(slot_hash)
     end
 

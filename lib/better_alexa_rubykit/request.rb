@@ -1,11 +1,11 @@
-module AlexaRubykit
+module BetterAlexaRubyKit
 # Echo can send 3 types of requests
 # - LaunchRequest: The start of the app.
 # - IntentRequest: The intent of the app.
 # - SessionEndedRequest: Session has ended.
   class Request
     require 'json'
-    require 'alexa_rubykit/session'
+    require 'better_alexa_rubykit/session'
     attr_accessor :version, :type, :session, :json # global
     attr_accessor :request_id, :locale # on request
 
@@ -17,13 +17,13 @@ module AlexaRubykit
       @json   = json_request
 
       # TODO: We probably need better session handling.
-      @session = AlexaRubykit::Session.new(json_request['session'])
+      @session = BetterAlexaRubyKit::Session.new(json_request['session'])
     end
   end
 
   # Builds a new request for Alexa.
   def self.build_request(json_request)
-    raise ArgumentError, 'Invalid Alexa Request.' unless AlexaRubykit.valid_alexa?(json_request)
+    raise ArgumentError, 'Invalid Alexa Request.' unless BetterAlexaRubyKit.valid_alexa?(json_request)
     @request = nil
     case json_request['request']['type']
       when /Launch/

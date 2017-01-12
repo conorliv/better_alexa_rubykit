@@ -1,4 +1,4 @@
-module AlexaRubykit
+module BetterAlexaRubyKit
   class Response
     require 'json'
     attr_accessor :version, :session, :response_object, :session_attributes, :speech, :reprompt, :response, :card
@@ -15,13 +15,12 @@ module AlexaRubykit
       @session_attributes[key.to_sym] = value
     end
 
-    def add_speech(speech_text)
-      @speech = { :type => 'PlainText', :text => speech_text }
-      @speech
+    def add_speech(speech_text, ssml: false)
+      @speech = build_speech(speech_text, ssml: ssml)
     end
 
-    def add_reprompt(speech_text)
-      @reprompt = { "outputSpeech" => { :type => 'PlainText', :text => speech_text } }
+    def add_reprompt(speech_text, ssml: false)
+      @reprompt = { "outputSpeech" => build_speech(speech_text, ssml: ssml) }
       @reprompt
     end
 
@@ -48,18 +47,10 @@ module AlexaRubykit
     end
 
     # Adds a speech to the object, also returns a outputspeech object.
-    def say_response(speech, end_session = true)
-      output_speech = add_speech(speech)
+    def say_response(speech, end_session = true, ssml: false)
+      output_speech = add_speech(speech, ssml: ssml)
       { :outputSpeech => output_speech, :shouldEndSession => end_session }
     end
-
-    # Incorporates reprompt in the SDK 2015-05
-    def say_response_with_reprompt(speech, reprompt_speech, end_session = true)
-      output_speech = add_speech(speech)
-      reprompt_speech = add_reprompt(reprompt_speech)
-      { :outputSpeech => output_speech, :reprompt => reprompt_speech, :shouldEndSession => end_session }
-    end
-
 
     # Creates a session object. We pretty much only use this in testing.
     def build_session
@@ -95,6 +86,13 @@ module AlexaRubykit
     # Outputs the version, session object and the response object.
     def to_s
       "Version => #{@version}, SessionObj => #{@session}, Response => #{@response}"
+    end
+
+    private
+
+    def build_speech(content, ssml: false)
+      return { :type => 'PlainText', :text => content } unless ssml
+      return { :type => 'SSML', :ssml => content }
     end
   end
 end

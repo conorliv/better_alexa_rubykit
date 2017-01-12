@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'alexa_rubykit/version'
+require 'better_alexa_rubykit/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "alexa_rubykit"
-  spec.version       = AlexaRubykit::VERSION
-  spec.authors       = ["Damian Finol"]
-  spec.email         = ["damian.finol@gmail.com"]
-  spec.summary       = %q{Alexa Ruby Kit}
-  spec.description   = %q{Alexa Ruby Kit with examples}
-  spec.homepage      = 'https://github.com/damianFC/alexa-rubykit'
+  spec.name          = "better_alexa_rubykit"
+  spec.version       = BetterAlexaRubyKit::VERSION
+  spec.authors       = ["Kareem Janoudi"]
+  spec.email         = ["kjanoudi@gmail.com"]
+  spec.summary       = %q{Better Alexa Ruby Kit}
+  spec.description   = %q{An updated version of the a ruby implementation of the Alexa Skills API}
+  spec.homepage      = 'https://github.com/kjanoudi/better_alexa_rubykit'
   spec.license       = "MIT"
   spec.files         = Dir['[A-Z]*'] + Dir['lib/**/*'] + Dir['tests/**'] + Dir['bin/**']
   spec.files.reject!   { |fn| fn.include? ".gem" }
