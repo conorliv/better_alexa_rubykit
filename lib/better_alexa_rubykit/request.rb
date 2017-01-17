@@ -19,6 +19,16 @@ module BetterAlexaRubyKit
       # TODO: We probably need better session handling.
       @session = BetterAlexaRubyKit::Session.new(json_request['session'])
     end
+
+    def intent_name
+      if type == "LAUNCH_REQUEST"
+        return 'LaunchRequest'
+      elsif type == 'INTENT_REQUEST'
+        return name
+      else
+        return 'SessionEndedRequest'
+      end
+    end
   end
 
   # Builds a new request for Alexa.
